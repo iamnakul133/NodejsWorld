@@ -1,16 +1,16 @@
-const http = require("http");
+const express = require("express");
 
-const server = http.createServer((req, res) => {
-  //console.log(req.method);
+const app = express();
 
-  console.log(req.url);
-  if (req.url === "/") {
-    res.writeHead(200, { "content-type": "text/html" }); //mime/media type
-    res.end("home page");
-  } else if (req.url == "/about") {
-    res.writeHead(200, { "content-type": "text/html" }); //mime/media type
-    res.end("about page");
-  }
+app.use(express.static("./public"));
+app.get("/", (req, res) => {
+  res.send(oath.resolve(__dirname, "./navbar-app/index.html"));
 });
 
-server.listen(5000);
+app.all("*", (req, res) => {
+  res.status(404).send("<h1>resource not found<h1>");
+});
+
+app.listen(3000, () => {
+  console.log("server is listening on port 3000");
+});
